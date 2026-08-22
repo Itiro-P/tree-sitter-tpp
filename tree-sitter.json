@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "tpp",
+      "camelcase": "Tpp",
+      "title": "Tpp",
+      "scope": "source.tpp",
+      "file-types": [
+        "tpp"
+      ],
+      "injection-regex": "^tpp$",
+      "class-name": "TreeSitterTpp"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree sitter for the Tpp language",
+    "authors": [
+      {
+        "name": "Pedro Itiro Nagao",
+        "email": "itiropedro@gmail.com",
+        "url": "https://github.com/Itiro-P"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Itiro-P/tree-sitter-tpp",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "java": false,
+    "node": false,
+    "python": false,
+    "rust": false,
+    "swift": false,
+    "zig": false
+  }
+}
