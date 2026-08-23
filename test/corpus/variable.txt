@@ -1,0 +1,88 @@
+===========================
+Simple variable definition
+===========================
+
+inteiro: nome
+
+---
+
+(source_file 
+  (definition_list 
+    (definition 
+      (variable_definition 
+        (TYPE
+          (INTEGER))
+        (DOUBLE_DOT)
+        (variable_list
+          (variable
+            (identifier)))))))
+
+=======================
+Variable with index
+=======================
+
+inteiro: nomes[2]
+
+---
+
+(source_file 
+  (definition_list 
+    (definition 
+      (variable_definition 
+        (TYPE
+          (INTEGER))
+        (DOUBLE_DOT)
+        (variable_list
+          (variable
+            (identifier)
+            (index
+              (OPEN_BRACKET)
+              (expression
+                (logical_expression
+                  (simple_expression
+                    (addition_expression
+                      (multiplication_expression
+                        (unary_expression
+                          (factor
+                            (number
+                              (NUM_INTEGER)))))))))
+              (CLOSE_BRACKET))))))))
+
+================
+Variable list
+================
+
+inteiro: a, b, c[2]
+
+---
+
+(source_file
+  (definition_list
+    (definition
+      (variable_definition
+        (TYPE
+          (INTEGER))
+        (DOUBLE_DOT)
+        (variable_list
+          (variable_list
+            (variable_list
+              (variable
+                (identifier)))
+            (COMMA)
+            (variable
+              (identifier)))
+          (COMMA)
+          (variable
+            (identifier)
+            (index
+              (OPEN_BRACKET)
+              (expression
+                (logical_expression
+                  (simple_expression
+                    (addition_expression
+                      (multiplication_expression
+                        (unary_expression
+                          (factor
+                            (number
+                              (NUM_INTEGER)))))))))
+              (CLOSE_BRACKET))))))))

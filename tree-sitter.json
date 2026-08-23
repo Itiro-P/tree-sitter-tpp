@@ -9,6 +9,8 @@
       "file-types": [
         "tpp"
       ],
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm",
       "injection-regex": "^tpp$",
       "class-name": "TreeSitterTpp"
     }

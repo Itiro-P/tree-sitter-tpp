@@ -10,6 +10,11 @@
 export default grammar({
   name: "tpp",
 
+  extras: $ => [
+    /\s/,
+    $.comment
+  ],
+
   conflicts: $ => [
     [$.variable, $.function_call]
   ],
@@ -245,6 +250,8 @@ export default grammar({
     ),
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    comment: $ => /\{[^}]*\}/,
 
     SUM: $ => '+',
     MINUS: $ => '-',
