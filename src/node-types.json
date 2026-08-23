@@ -196,7 +196,7 @@
           "named": true
         },
         {
-          "type": "ERROR",
+          "type": "ERRORR",
           "named": true
         },
         {
@@ -928,7 +928,7 @@
     "named": true
   },
   {
-    "type": "ERROR",
+    "type": "ERRORR",
     "named": true
   },
   {

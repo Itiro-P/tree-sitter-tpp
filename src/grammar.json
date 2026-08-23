@@ -560,7 +560,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "ERROR"
+          "name": "ERRORR"
         },
         {
           "type": "SYMBOL",
@@ -1041,7 +1041,7 @@
       "type": "STRING",
       "value": "retorna"
     },
-    "ERROR": {
+    "ERRORR": {
       "type": "STRING",
       "value": "erro"
     },

@@ -152,7 +152,7 @@ export default grammar({
     ),
 
     errorr: $ => seq(
-      $.ERROR,
+      $.ERRORR,
       $.OPEN_PARENTHESIS,
       $.expression,
       $.CLOSE_PARENTHESIS
@@ -275,7 +275,7 @@ export default grammar({
     READ: $ => "leia",
     WRITE: $ => "escreva",
     RETURN: $ => "retorna",
-    ERROR: $ => "erro",
+    ERRORR: $ => "erro",
     INTEGER: $ => "inteiro",
     FLOAT: $ => "flutuante",
     NUM_INTEGER: $ => /\d+/,
