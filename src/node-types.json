@@ -27,6 +27,10 @@
       "required": true,
       "types": [
         {
+          "type": "assignment",
+          "named": true
+        },
+        {
           "type": "errorr",
           "named": true
         },
@@ -218,10 +222,6 @@
       "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "assignment",
-          "named": true
-        },
         {
           "type": "logical_expression",
           "named": true

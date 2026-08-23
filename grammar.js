@@ -95,6 +95,7 @@ export default grammar({
     action: $ => choice(
       $.expression,
       $.variable_definition,
+      $.assignment,
       $.iff,
       $.repeatt,
       $.readd,
@@ -163,10 +164,9 @@ export default grammar({
       $.CLOSE_PARENTHESIS
     ),
 
-    expression: $ => choice(
-      $.logical_expression,
-      $.assignment
-    ),
+    // The Tpp's BNF used a function that could return an assignment.
+    // Im not really sure this is the intended behaviour, so I chose to not include here.
+    expression: $ => $.logical_expression,
 
     logical_expression: $ => choice(
       $.simple_expression,

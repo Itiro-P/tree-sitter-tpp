@@ -1,11 +1,10 @@
-(variable_definition 
-  (variable_list 
-    (variable 
-      (identifier))) @local.definition.var)
+(variable_definition
+  (variable_list
+    (variable
+      (identifier) @local.definition.var)))
 
-(function_definition 
-  (header 
-    (identifier)) @local.definition.function)
+(function_definition
+  (header
+    (identifier) @local.definition.function))
 
 (body) @local.scope
-

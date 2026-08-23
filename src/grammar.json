@@ -335,6 +335,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "assignment"
+        },
+        {
+          "type": "SYMBOL",
           "name": "iff"
         },
         {
@@ -577,17 +581,8 @@
       ]
     },
     "expression": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "logical_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "assignment"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "logical_expression"
     },
     "logical_expression": {
       "type": "CHOICE",

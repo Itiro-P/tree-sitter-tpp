@@ -1,11 +1,16 @@
 ; Schema for syntax highlighting
 
-(header) @function
+(function_definition
+  (TYPE) @keyword.function)
 
-(identifier) @variable
+(header
+  (identifier) @function)
 
-(function_call
-  (identifier) @function.call)
+(variable
+  (identifier) @variable)
+
+(parameter
+  (identifier) @variable.parameter)
 
 [
  (relational_operator)
@@ -41,13 +46,13 @@
   (UNTIL)
 ] @keyword.repeat
 
-(END) @keyword
+(END) @label
 
 [
   (READ)
   (WRITE)
-  (RETURN)
   (ERRORR)
+  (RETURN)
 ] @function.builtin
 
 (readd
@@ -58,9 +63,6 @@
 
 (returnn
   (RETURN) @function.call)
-
-(errorr
-  (ERRORR) @function.call)
 
 [
  (INTEGER)
