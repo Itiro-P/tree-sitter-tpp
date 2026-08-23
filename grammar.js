@@ -10,14 +10,15 @@
 export default grammar({
   name: "tpp",
 
+  conflicts: $ => [
+    [$.variable, $.function_call]
+  ],
+
   rules: {
     source_file: $ => repeat($.definition_list),
 
     definition_list: $ => choice(
-      seq(
-        prec.left($.definition_list),
-        $.definition
-      ),
+      prec.left(1, seq($.definition_list, $.definition)),
       $.definition
     ),
 
@@ -36,11 +37,7 @@ export default grammar({
     variable_initialization: $ => $.assignment,
 
     variable_list: $ => choice(
-      seq(
-        prec.left($.variable_list),
-        $.COMMA,
-        $.variable
-      ),
+      prec.left(1, seq($.variable_list, $.COMMA, $.variable)),
       $.variable
     ),
 
@@ -50,17 +47,8 @@ export default grammar({
     ),
 
     index: $ => choice(
-      seq(
-        prec.left($.index),
-        $.OPEN_BRACKET,
-        $.expression,
-        $.CLOSE_BRACKET
-      ),
-      seq(
-        $.OPEN_BRACKET,
-        $.expression,
-        $.CLOSE_BRACKET
-      )
+      prec.left(1, seq($.index, $.OPEN_BRACKET, $.expression, $.CLOSE_BRACKET)),
+      seq($.OPEN_BRACKET, $.expression, $.CLOSE_BRACKET)
     ),
 
     TYPE: $ => choice(
@@ -79,42 +67,25 @@ export default grammar({
     header: $ => seq(
       $.identifier,
       $.OPEN_PARENTHESIS,
-      $.parameter_list,
+      optional($.parameter_list),
       $.CLOSE_PARENTHESIS,
-      $.BODY,
+      optional($.body),
       $.END
     ),
 
-    parameter_list: $ => choice(
-      seq(
-        prec.left($.parameter_list),
-        $.COMMA,
-        $.parameter
-      ),
+    parameter_list: $ => seq(
       $.parameter,
-      $.EMPTY
+      repeat(seq($.COMMA, $.parameter))
     ),
 
-    parameter: $ => choice(
-      seq(
-        $.TYPE,
-        $.DOUBLE_DOT,
-        $.identifier
-      ),
-      seq(
-        prec.left($.parameter),
-        $.OPEN_BRACKET,
-        $.CLOSE_BRACKET
-      )
+    parameter: $ => seq(
+      $.TYPE,
+      $.DOUBLE_DOT,
+      $.identifier,
+      optional(seq($.OPEN_BRACKET, $.CLOSE_BRACKET))
     ),
 
-    body: $ => choice(
-      seq(
-        prec.left($.body),
-        $.action
-      ),
-      $.EMPTY
-    ),
+    body: $ => repeat1($.action),
 
     action: $ => choice(
       $.expression,
@@ -132,23 +103,23 @@ export default grammar({
         $.IF,
         $.expression,
         $.THEN,
-        $.body,
+        optional($.body),
         $.END
       ),
       seq(
         $.IF,
         $.expression,
         $.THEN,
-        $.body,
+        optional($.body),
         $.ELSE,
-        $.body,
+        optional($.body),
         $.END
       )
     ),
 
     repeatt: $ => seq(
       $.REPEAT,
-      $.body,
+      optional($.body),
       $.UNTIL,
       $.expression
     ),
@@ -180,9 +151,135 @@ export default grammar({
       $.CLOSE_PARENTHESIS
     ),
 
+    errorr: $ => seq(
+      $.ERROR,
+      $.OPEN_PARENTHESIS,
+      $.expression,
+      $.CLOSE_PARENTHESIS
+    ),
+
     expression: $ => choice(
-      $.expression_logic,
+      $.logical_expression,
       $.assignment
-    )
+    ),
+
+    logical_expression: $ => choice(
+      $.simple_expression,
+      prec.left(1, seq($.logical_expression, $.logical_operator, $.simple_expression))
+    ),
+
+    simple_expression: $ => choice(
+      $.addition_expression,
+      prec.left(1, seq($.simple_expression, $.relational_operator, $.addition_expression))
+    ),
+
+    addition_expression: $ => choice(
+      $.multiplication_expression,
+      prec.left(1, seq($.addition_expression, $.sum_operator, $.multiplication_expression))
+    ),
+
+    multiplication_expression: $ => choice(
+      $.unary_expression,
+      prec.left(1, seq($.multiplication_expression, $.multiplication_operator, $.unary_expression))
+    ),
+
+    unary_expression: $ => choice(
+      $.factor,
+      seq($.sum_operator, $.factor),
+      seq($.negation_operator, $.factor)
+    ),
+
+    relational_operator: $ => choice(
+      $.LESS,
+      $.GREATER,
+      $.EQUALS,
+      $.DIFFERENT,
+      $.LESS_EQUAL,
+      $.GREATER_EQUAL
+    ),
+
+    sum_operator: $ => choice(
+      $.SUM,
+      $.MINUS
+    ),
+
+    logical_operator: $ => choice(
+      $.AND,
+      $.OR
+    ),
+
+    negation_operator: $ => $.NOT,
+
+    multiplication_operator: $ => choice(
+      $.TIMES,
+      $.DIVIDED
+    ),
+
+    factor: $ => choice(
+      seq(
+        $.OPEN_PARENTHESIS,
+        $.expression,
+        $.CLOSE_PARENTHESIS
+      ),
+      $.variable,
+      $.function_call,
+      $.number
+    ),
+
+    number: $ => choice(
+      $.NUM_INTEGER,
+      $.NUM_FLOAT,
+      $.NUM_SCIENTIFIC_NOTATION
+    ),
+
+    function_call: $ => seq(
+      $.identifier,
+      $.OPEN_PARENTHESIS,
+      optional($.argument_list),
+      $.CLOSE_PARENTHESIS
+    ),
+
+    argument_list: $ => seq(
+      $.expression,
+      repeat(seq($.COMMA, $.expression))
+    ),
+
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    SUM: $ => '+',
+    MINUS: $ => '-',
+    TIMES: $ => '*',
+    DIVIDED: $ => '/',
+    DOUBLE_DOT: $ => ':',
+    COMMA: $ => ',',
+    LESS: $ => '<',
+    GREATER: $ => '>',
+    EQUALS: $ => '=',
+    DIFFERENT: $ => "<>",
+    LESS_EQUAL: $ => "<=",
+    GREATER_EQUAL: $ => ">=",
+    AND: $ => "&&",
+    OR: $ => "||",
+    NOT: $ => '!',
+    OPEN_PARENTHESIS: $ => '(',
+    CLOSE_PARENTHESIS: $ => ')',
+    OPEN_BRACKET: $ => '[',
+    CLOSE_BRACKET: $ => ']',
+    IF: $ => "se",
+    THEN: $ => "então",
+    ELSE: $ => "senão",
+    END: $ => "fim",
+    REPEAT: $ => "repita",
+    UNTIL: $ => "até",
+    ASSIGNMENT: $ => ":=",
+    READ: $ => "leia",
+    WRITE: $ => "escreva",
+    RETURN: $ => "retorna",
+    ERROR: $ => "erro",
+    INTEGER: $ => "inteiro",
+    FLOAT: $ => "flutuante",
+    NUM_INTEGER: $ => /\d+/,
+    NUM_FLOAT: $ => /\d+\.?\d*/,
+    NUM_SCIENTIFIC_NOTATION: $ => /\d+\.?\d*e(\+|-)?\d+/
   }
 });
