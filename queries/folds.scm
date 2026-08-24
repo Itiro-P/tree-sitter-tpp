@@ -1,6 +1,8 @@
 [
   (function_definition)
-  (iff)
-  (repeatt)
+  (iff
+    (THEN)
+  (repeatt
+    (REPEAT)
   (comment)
 ] @fold
