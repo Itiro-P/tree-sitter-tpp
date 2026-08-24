@@ -7,4 +7,4 @@
   (header
     (identifier) @local.definition.function))
 
-(body) @local.scope
+(header) @local.scope
