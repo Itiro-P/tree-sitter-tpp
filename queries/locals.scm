@@ -11,10 +11,6 @@
 
 [
  (function_definition)
- (iff
-   (THEN))
- (iff
-   (ELSE))
- (repeatt
-   (REPEAT)
+ (iff)
+ (repeatt)
 ] @local.scope
