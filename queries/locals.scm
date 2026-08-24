@@ -7,4 +7,14 @@
   (header
     (identifier) @local.definition.function))
 
-(header) @local.scope
+(identifier) @local.reference
+
+[
+ (function_definition)
+ (iff
+   (THEN))
+ (iff
+   (ELSE))
+ (repeatt
+   (REPEAT)
+] @local.scope
