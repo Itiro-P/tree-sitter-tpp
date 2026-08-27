@@ -9,6 +9,9 @@
 
 (identifier) @local.reference
 
+(parameter
+  (identifier) @local.definition.parameter)
+
 [
  (function_definition)
  (iff)

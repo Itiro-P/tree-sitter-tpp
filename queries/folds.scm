@@ -1,17 +1,18 @@
 (comment) @fold
-
+ 
 (function_definition
-  (header) @fold
-  (END) @fold) @fold
-
+  (header) @fold) @fold
+ 
 (iff
-  (IF) @fold
-  (END) @fold) @fold
-
+  (THEN)
+  .
+  (body) @fold)
+ 
 (iff
-  (ELSE) @fold
-  (END) @fold) @fold
-
+  (ELSE)
+  .
+  (body) @fold)
+ 
 (repeatt
   (REPEAT) @fold
   (UNTIL) @fold) @fold
