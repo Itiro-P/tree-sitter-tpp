@@ -12,7 +12,9 @@
   (ELSE)
   .
   (body) @fold)
- 
+
 (repeatt
-  (REPEAT) @fold
-  (UNTIL) @fold) @fold
+  (REPEAT)
+  .
+  (body) @fold)
+
